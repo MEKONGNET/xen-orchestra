@@ -917,9 +917,17 @@ export default class TabAdvanced extends Component {
                 <tr>
                   <th>{_('managementAgentVersion')}</th>
                   <td>
-                    {vm.xenTools
-                      ? `${vm.xenTools.major}.${vm.xenTools.minor}`
-                      : _('xenToolsNotInstalled')}
+                    {vm.managementAgentDetected
+                      ? vm.xenTools
+                        ? `${vm.xenTools.major}.${vm.xenTools.minor}`
+                        : _('unknown')
+                      : _('managementAgentNotDetected')}
+                  </td>
+                </tr>
+                <tr>
+                  <th>{_('pvDrivers')}</th>
+                  <td>
+                    {vm.pvDriversDetected ? _('detected') : _('notDetected')}
                   </td>
                 </tr>
                 <tr>
