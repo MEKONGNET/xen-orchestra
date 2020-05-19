@@ -280,12 +280,13 @@ const TRANSFORMS = {
       }
     })
 
+    const addresses = guestMetrics?.networks ?? null
     const vm = {
       // type is redefined after for controllers/, templates &
       // snapshots.
       type: 'VM',
 
-      addresses: (guestMetrics && guestMetrics.networks) || null,
+      addresses,
       affinityHost: link(obj, 'affinity'),
       auto_poweron: otherConfig.auto_poweron === 'true',
       bios_strings: obj.bios_strings,
@@ -376,6 +377,16 @@ const TRANSFORMS = {
       // - 'out of date': optimized but drivers should be updated
       // - 'up to date': optimized
       xenTools,
+
+      // https://github.com/xenserver/xenadmin/blob/16eb52eba36279e9722b585f71de6449829a4ca6/XenModel/XenAPI-Extensions/VM.cs#L811
+      managementAgentDetected:
+        guestMetrics?.other?.['feature-static-ip-setting'] !== undefined ||
+        !isEmpty(addresses),
+
+      // "PV_drivers_up_to_date" deprecated since XenServer 7.0
+      pvDriversDetected: Boolean(
+        guestMetrics?.PV_drivers_detected ?? guestMetrics?.PV_drivers_up_to_date
+      ),
 
       // TODO: handle local VMs (`VM.get_possible_hosts()`).
       $container: isRunning ? link(obj, 'resident_on') : link(obj, 'pool'),

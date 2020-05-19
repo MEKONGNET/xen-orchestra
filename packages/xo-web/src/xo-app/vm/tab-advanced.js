@@ -915,7 +915,7 @@ export default class TabAdvanced extends Component {
             <table className='table table-hover'>
               <tbody>
                 <tr>
-                  <th>{_('xenToolsStatus')}</th>
+                  <th>{_('managementAgentVersion')}</th>
                   <td>
                     {vm.xenTools
                       ? `${vm.xenTools.major}.${vm.xenTools.minor}`

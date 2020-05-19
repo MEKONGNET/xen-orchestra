@@ -2084,9 +2084,6 @@ export default {
   // Original text: "PV args"
   pvArgsLabel: 'Argumentos PV',
 
-  // Original text: "Xen tools status"
-  xenToolsStatus: 'Estado de Xen Tools',
-
   // Original text: "{status}"
   xenToolsStatusValue: '{status}',
 

@@ -33,6 +33,48 @@ import {
   XvdSparkLines,
 } from 'xo-sparklines'
 
+const XenToolsDetection = ({ vm }) => {
+  if (vm.power_state !== 'Running') {
+    return null
+  }
+
+  if (!vm.pvDriversDetected) {
+    return (
+      <Row className='text-xs-center'>
+        <Col>
+          <Icon icon='error' />
+          <em> {_('noToolsDetected')}.</em>
+        </Col>
+      </Row>
+    )
+  }
+
+  if (vm.managementAgentDetected) {
+    return (
+      <Row className='text-xs-center'>
+        <Col>
+          <em>
+            {_('managementAgentDetected', {
+              version: vm.xenTools
+                ? `${vm.xenTools.major}.${vm.xenTools.minor}`
+                : _('unknown'),
+            })}
+          </em>
+        </Col>
+      </Row>
+    )
+  }
+
+  return (
+    <Row className='text-xs-center'>
+      <Col>
+        <Icon icon='error' />
+        <em> {_('managementAgentNotDetected')}.</em>
+      </Col>
+    </Row>
+  )
+}
+
 export default connectStore(() => {
   const getVgpus = createGetObjectsOfType('vgpu')
     .pick((_, { vm }) => vm.$VGPUs)
@@ -79,7 +121,6 @@ export default connectStore(() => {
       startTime,
       tags,
       VIFs: vifs,
-      xenTools,
     } = vm
     return (
       <Container>
@@ -206,14 +247,7 @@ export default connectStore(() => {
             </BlockLink>
           </Col>
         </Row>
-        {!xenTools && powerState === 'Running' && (
-          <Row className='text-xs-center'>
-            <Col>
-              <Icon icon='error' />
-              <em> {_('noToolsDetected')}.</em>
-            </Col>
-          </Row>
-        )}
+        <XenToolsDetection vm={vm} />
         {/* TODO: use CSS style */}
         <br />
         <Row>

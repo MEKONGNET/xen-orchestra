@@ -77,6 +77,7 @@ const messages = {
   withMemory: 'With memory',
   offline: 'Offline',
   noLicenseAvailable: 'No license available',
+  unknown: 'unknown',
 
   // ----- Modals -----
   alertOk: 'OK',
@@ -1003,6 +1004,8 @@ const messages = {
 
   // ----- VM general tab -----
   noToolsDetected: 'No Xen tools detected',
+  managementAgentDetected: 'Management agent version {version} detected.',
+  managementAgentNotDetected: 'Management agent not detected',
   noIpv4Record: 'No IPv4 record',
   noIpRecord: 'No IP record',
   started: 'Started {ago}',
@@ -1182,7 +1185,7 @@ const messages = {
   cpuCapLabel: 'CPU cap',
   defaultCpuCap: 'Default ({value, number})',
   pvArgsLabel: 'PV args',
-  xenToolsStatus: 'Xen tools version',
+  managementAgentVersion: 'Management agent version',
   xenToolsNotInstalled: 'Not installed',
   osName: 'OS name',
   osKernel: 'OS kernel',
